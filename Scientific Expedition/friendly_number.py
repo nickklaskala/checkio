@@ -1,7 +1,10 @@
+#!/usr/bin/env checkio --domain=py run friendly-number
 
+# 
+# END_DESC
 
 def friendly_number(number, base=1000, decimals=0, suffix='',powers=['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']):
-	counter=0
+    counter=0
 	while abs(number)>=base and counter+1<len(powers):
 		number=round(number/base,1)
 		counter+=1
