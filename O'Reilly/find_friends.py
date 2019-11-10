@@ -21,21 +21,46 @@
 # 
 # END_DESC
 
-def check_connection(network, first, second):
-    return True or False
+def check_connection(network, a, b):
+	dct={}
+	network=[(a.split('-')) for a in network ]
+	nodes=set([i[0] for i in network]+[i[1] for i in network])
+
+	for i in nodes:
+		dct[i]=[]
+
+
+	for i in nodes:
+		for connection in network:
+			if i in connection:
+				for n in connection:
+					dct[i].append(n) if n not in dct[i] else ''
+
+	for i in range(len(network)):
+		for k,v in dct.items():
+			for connection in network:
+				if connection[0] in v or connection[1] in v:
+					dct[k].extend(connection)
+
+	rst=True if a in dct[b] else False
+		
+	return rst
 
 
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
-    assert check_connection(
-        ("dr101-mr99", "mr99-out00", "dr101-out00", "scout1-scout2",
-         "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super"),
-        "scout2", "scout3") == True, "Scout Brotherhood"
-    assert check_connection(
-        ("dr101-mr99", "mr99-out00", "dr101-out00", "scout1-scout2",
-         "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super"),
-        "super", "scout2") == True, "Super Scout"
-    assert check_connection(
-        ("dr101-mr99", "mr99-out00", "dr101-out00", "scout1-scout2",
-         "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super"),
-        "dr101", "sscout") == False, "I don't know any scouts."
+	#These "asserts" using only for self-checking and not necessary for auto-testing
+	assert check_connection(
+		("dr101-mr99", "mr99-out00", "dr101-out00", "scout1-scout2",
+		 "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super"),
+		"scout2", "scout3") == True, "Scout Brotherhood"
+	assert check_connection(
+		("dr101-mr99", "mr99-out00", "dr101-out00", "scout1-scout2",
+		 "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super"),
+		"super", "scout2") == True, "Super Scout"
+	assert check_connection(
+		("dr101-mr99", "mr99-out00", "dr101-out00", "scout1-scout2",
+		 "scout3-scout1", "scout1-scout4", "scout4-sscout", "sscout-super"),
+		"dr101", "sscout") == False, "I don't know any scouts."
+
+
+
