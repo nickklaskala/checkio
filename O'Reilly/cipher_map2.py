@@ -3,32 +3,28 @@
 # 
 # END_DESC
 
-def recall_password(cipher_grille, ciphered_password):
-	
+def recall_password(cipher, password):
+	psw=''
+	cipher= [[c for c in l] for l in cipher]
+
+	def flipGrid(grid):
+		box=[[] for i in grid]
+		for x in range(len(grid)):
+			for y in range(len(grid)):
+				box[y].append(grid[~x][y])
+		return box
+
+	for turn in range(len(password)):
+		for l in range(len(cipher)):
+			for c in range(len(cipher)):
+				if cipher[l][c]=='X':
+					psw+=password[l][c]
+		cipher=flipGrid(cipher)
+
+	print(psw)
+	return psw
 
 
-
-	return ""
-
-cipher_grille, ciphered_password=('X...', '..X.', 'X..X', '....'), ('itdf', 'gdce', 'aton', 'qrdi')
-
-cipher_grille, ciphered_password=('....', 'X..X', '.X..', '...X'), ('xhwc', 'rsqx', 'xqzz', 'fyzr')
-
-
-cipher_grille=''.join(list(cipher_grille))
-ciphered_password=''.join(list(ciphered_password))
-psw=''
-
-for i in range(len(cipher_grille)):
-	if cipher_grille[i]=='X':
-		psw+=ciphered_password[i]
-print(psw)
-
-
-
-
-
-'''
 if __name__ == '__main__':
 	#These "asserts" using only for self-checking and not necessary for auto-testing
 	assert recall_password(
@@ -50,4 +46,3 @@ if __name__ == '__main__':
 		 'rsqx',
 		 'xqzz',
 		 'fyzr')) == 'rxqrwsfzxqxzhczy', 'Second example'
-'''
