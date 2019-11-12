@@ -2,31 +2,14 @@
 
 # 
 # END_DESC
-
-def recall_password(cipher, password):
-	psw=''
-	cipher= [[c for c in l] for l in cipher]
-
-	def flipGrid(grid):
-		box=[[] for i in grid]
-		for x in range(len(grid)):
-			for y in range(len(grid)):
-				box[y].append(grid[~x][y])
-		return box
-
-	for turn in range(len(cipher)):
-		for l in range(len(cipher)):
-			for c in range(len(cipher)):
-				if cipher[l][c]=='X':
-					psw+=password[l][c]
-		cipher=flipGrid(cipher)
-
-	print(psw)
-	return psw
-
-
-
-
+def recall_password(grille, password):
+	g = [[c for c in l] for l in grille]
+	c = [[c for c in l] for l in password]
+	pw=[]
+	for i in range(4):
+		pw.extend([[g,c] for g,c in zip(g,c) for g,c in zip(g,c)])
+		g=[[g[~x][y] for x in range(len(g))] for y in range(len(g))]
+	return ''.join([i[1] for i in pw if i[0]=='X'])
 
 if __name__ == '__main__':
 	#These "asserts" using only for self-checking and not necessary for auto-testing
