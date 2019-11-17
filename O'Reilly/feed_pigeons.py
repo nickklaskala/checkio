@@ -7,12 +7,14 @@
 # If I haveNportions of bird feed, how many pigeons will be fed with at least one portion of wheat?# END_DESC
 
 def checkio(rice):
-	i,pigeon=0,0
+	count,fed,pigeon=0,0,0
 	while rice>0:
-		pigeon+=pigeon+1
-		i=max(rice,(pigeon-1)/2)
+		count+=1
+		pigeon+=count
+		fed=max(rice,(pigeon-count))
 		rice-=pigeon
-	return i
+	return fed
+
 
 if __name__ == '__main__':
 	#These "asserts" using only for self-checking and not necessary for auto-testing
@@ -20,3 +22,4 @@ if __name__ == '__main__':
 	assert checkio(2) == 1, "2nd example"
 	assert checkio(5) == 3, "3rd example"
 	assert checkio(10) == 6, "4th example"
+	assert checkio(18) == 8, "4th example"
