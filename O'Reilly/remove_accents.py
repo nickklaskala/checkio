@@ -1,6 +1,8 @@
 #!/usr/bin/env checkio --domain=py run remove-accents
 
-# Assuming you are developing a user based system like facebook, you will want to provide the functionality to search for other members regardless of the presence of accents in a username. Without using 3rd party collation library, you will need to remove the accents from username before comparison.
+# Assuming you are developing a user based system like facebook, you will want to provide the functionality 
+# to search for other members regardless of the presence of accents in a username. Without using 3rd party 
+# collation library, you will need to remove the accents from username before comparison.
 # 
 # é - letter with accent; e - letter without accent; ̀ and ́ - stand alone accents;
 # 
@@ -15,13 +17,24 @@
 # 
 # END_DESC
 
-def checkio(in_string):
-    "remove accents"
-    
-    return in_string
 
-    #These "asserts" using only for self-checking and not necessary for auto-testing
+
+
+
+
+def checkio(in_string):
+	import string
+	in_string = in_string.translate(in_string.maketrans("éèiănớ", "eeiano")) 
+	return in_string
+
+	#These "asserts" using only for self-checking and not necessary for auto-testing
 if __name__ == '__main__':
-    assert checkio(u"préfèrent") == u"preferent"
-    assert checkio(u"loài trăn lớn") == u"loai tran lon"
-    print('Done')
+	assert checkio(u"préfèrent") == u"preferent"
+	assert checkio(u"loài trăn lớn") == u"loai tran lon"
+	print('Done')
+
+	#These "asserts" using only for self-checking and not necessary for auto-testing
+if __name__ == '__main__':
+	assert checkio(u"préfèrent") == u"preferent"
+	assert checkio(u"loà trăn lớn") == u"loai tran lon"
+	print('Done')
