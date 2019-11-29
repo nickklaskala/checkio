@@ -8,24 +8,35 @@
 # Input:String.Output:String.
 # END_DESC
 
-def repeat_inside(line):
-	dct={1:''}
-	count=1
-	for i in range(int(len(line)/2)):
-		for z in range(len(line)-i):
-			temp=[line[l:l+i+1] for l in range(z,len(line)-i,i+1)]
-			for t in range(len(temp)-1):
-				if temp[t]==temp[t+1] and dct[count]=='':
-					dct[count]=temp[t]+temp[t]
-				elif temp[t]==temp[t+1]:
-					dct[count]+=temp[t]
-				else:
-					count+=1
-					dct[count]=''
-			count+=1
-			dct[count]=''
-	# print(dct)
-	return max(dct.values(),key=len)
+def repeat_inside(string):
+    from itertools import product
+    result = ''
+    for i, j, k in product(range(len(string)),  range(len(string)), range(len(string))):     
+       pattern = string[i:j]*(k+2)
+       if pattern in string:
+           result = max(result, pattern, key=len)
+    return result 
+
+
+
+# def repeat_inside(line):
+# 	dct={1:''}
+# 	count=1
+# 	for i in range(int(len(line)/2)):
+# 		for z in range(len(line)-i):
+# 			temp=[line[l:l+i+1] for l in range(z,len(line)-i,i+1)]
+# 			for t in range(len(temp)-1):
+# 				if temp[t]==temp[t+1] and dct[count]=='':
+# 					dct[count]=temp[t]+temp[t]
+# 				elif temp[t]==temp[t+1]:
+# 					dct[count]+=temp[t]
+# 				else:
+# 					count+=1
+# 					dct[count]=''
+# 			count+=1
+# 			dct[count]=''
+# 	# print(dct)
+# 	return max(dct.values(),key=len)
 
 
 if __name__ == '__main__':
