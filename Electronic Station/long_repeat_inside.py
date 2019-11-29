@@ -10,29 +10,25 @@
 
 def repeat_inside(line):
 	dct={1:''}
-	line='abcabcabab'
 	count=1
 	for i in range(int(len(line)/2)):
-		temp=[line[l:l+i+1] for l in range(0,len(line)-i,i+1)]
-		for t in range(len(temp)-1):
-			if temp[t]==temp[t+1] and dct[count]=='':
-				dct[count]=temp[t]+temp[t]
-			elif temp[t]==temp[t+1]:
-				dct[count]+=temp[t]
-			else:
-				count+=1
-				dct[count]=''
+		for z in range(len(line)-i):
+			temp=[line[l:l+i+1] for l in range(z,len(line)-i,i+1)]
+			for t in range(len(temp)-1):
+				if temp[t]==temp[t+1] and dct[count]=='':
+					dct[count]=temp[t]+temp[t]
+				elif temp[t]==temp[t+1]:
+					dct[count]+=temp[t]
+				else:
+					count+=1
+					dct[count]=''
 			count+=1
 			dct[count]=''
-
+	# print(dct)
 	return max(dct.values(),key=len)
 
 
-
-
-
-
-if __name__ == 'x__main__':
+if __name__ == '__main__':
 	#These "asserts" using only for self-checking and not necessary for auto-testing
 	assert repeat_inside('aaaaa') == 'aaaaa', "First"
 	assert repeat_inside('aabbff') == 'aa', "Second"
