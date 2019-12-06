@@ -28,27 +28,41 @@
 
 def checkio(num):
 
-	from itertools import product
+    from itertools import product
 	p=[1,2,3,5,7]
 	factors=[0]
-	for j,k,l,m,n,o,p,q in product(p,p,p,p,p,p,p,p):
-		if j*k*l*m*n*o*p*q==num:
-			factors+=sorted([j,k,l,m,n,o,p,q])
+	for j,k,l,m,n,o,p,q,r,s in product(p,p,p,p,p,p,p,p,p,p):
+		if j*k*l*m*n*o*p*q*r*s==num:
+			factors+=sorted([j,k,l,m,n,o,p,q,r,s])
 			while 1 in factors:
 				factors.remove(1)
 			while 0 in factors:
 				factors.remove(0)
 			break
 
+	while factors.count(2)>=3:
+		factors.remove(2)
+		factors.remove(2)
+		factors.remove(2)
+		factors.append(8)
+    
+    while factors.count(3)>1:
+		factors.remove(3)
+		factors.remove(3)
+		factors.append(9)
+
+	while factors.count(3)>0 and factors.count(2)>0:
+		factors.remove(2)
+		factors.remove(3)
+		factors.append(6)
+
 	while factors.count(2)>1:
 		factors.remove(2)
 		factors.remove(2)
 		factors.append(4)
 
-	while factors.count(3)>1:
-		factors.remove(3)
-		factors.remove(3)
-		factors.append(9)
+
+
 
 	factors.sort()
 	x=int(''.join(map(str,factors)))
@@ -56,35 +70,6 @@ def checkio(num):
 
 
 
-
-# num=44100
-# from itertools import product
-# p=[1,2,3,5,7]
-# factors=[0]
-# for j,k,l,m,n,o,p,q in product(p,p,p,p,p,p,p,p):
-# 	if j*k*l*m*n*o*p*q==num:
-# 		factors+=sorted([j,k,l,m,n,o,p,q])
-# 		while 1 in factors:
-# 			factors.remove(1)
-# 		while 0 in factors:
-# 			factors.remove(0)
-# 		break
-
-		
-
-# while factors.count(2)>1:
-# 	factors.remove(2)
-# 	factors.remove(2)
-# 	factors.append(4)
-
-# while factors.count(3)>1:
-# 	factors.remove(3)
-# 	factors.remove(3)
-# 	factors.append(9)
-
-# factors.sort()
-# factors=''.join(map(str,factors))
-# print(factors)
 
 if __name__ == '__main__':
 	#These "asserts" using only for self-checking and not necessary for auto-testing
