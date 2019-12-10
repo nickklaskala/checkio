@@ -16,4 +16,7 @@
 # END_DESC
 
 def checkio(data):
-    return 0
+	return eval(('+'.join(map(str, data))))
+
+
+

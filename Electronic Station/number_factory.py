@@ -28,7 +28,7 @@
 
 def checkio(num):
 
-    from itertools import product
+	from itertools import product
 	p=[1,2,3,5,7]
 	factors=[0]
 	for j,k,l,m,n,o,p,q,r,s in product(p,p,p,p,p,p,p,p,p,p):
@@ -45,8 +45,8 @@ def checkio(num):
 		factors.remove(2)
 		factors.remove(2)
 		factors.append(8)
-    
-    while factors.count(3)>1:
+	
+	while factors.count(3)>1:
 		factors.remove(3)
 		factors.remove(3)
 		factors.append(9)
@@ -67,7 +67,6 @@ def checkio(num):
 	factors.sort()
 	x=int(''.join(map(str,factors)))
 	return x
-
 
 
 
