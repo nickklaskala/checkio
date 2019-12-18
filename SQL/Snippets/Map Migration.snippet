@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<CodeSnippets  
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">  
+    <CodeSnippet Format="1.0.0">  
+        <Header>  
+            <Title>Map Migration</Title>  
+        </Header>  
+        <Snippet>  
+            <Code Language="SQL">  
+                <![CDATA[
+
+IF OBJECT_ID('tempdb..#MapXXXXX') IS NOT NULL begin drop table #MapXXXXX end
+
+Create table #MapXXXXX
+(
+	OldXXXXXid nvarchar(100) collate Latin1_General_CI_AS,	   
+	NewXXXXXId nvarchar(100) collate Latin1_General_CI_AS	   
+)
+
+;with t1 as (
+select 
+	name,Description 
+from XXXXX as a 
+group by name,Description
+having count(*)>1
+), t2 as(
+select 
+	ROW_NUMBER() over (partition by a.name order by a.name) as rownum,
+	XXXXXID,
+	a.Name,
+	a.Description
+ from t1 as a 
+left join XXXXX as b on b.name=a.name and b.Description=a.Description
+)
+insert into #MapXXXXX
+select 
+	a.XXXXXID,
+	b.XXXXXID	
+from t2 as a 
+left join t2 as b on b.Name=a.name and b.Description=a.Description and b.rownum=2
+where a.rownum=1
+
+
+IF OBJECT_ID('tempdb..#Tables') IS NOT NULL  
+begin
+	drop table #Tables
+end
+				
+SELECT 
+	row_number() over (order by c.name) as id,
+	t.name AS xtable,
+	c.name AS xcolumn
+into #tables
+FROM sys.tables AS t
+JOIN sys.columns c ON t.OBJECT_ID = c.OBJECT_ID
+WHERE c.name LIKE '%XXXXXid%' 
+and t.name not in ('')
+order by t.name,c.name
+
+
+declare @count int=0
+declare @table nvarchar(max)=''
+declare @Column nvarchar(max)=''
+declare @sqlcommand varchar(max)=''
+
+while @count<(select Count(*) from #tables)
+	begin
+	set @sqlcommand=''
+	set @table=(select xtable from #Tables where id =@count)
+	set @column=(select xcolumn from #Tables where id =@count)
+
+	if @table<>substring(@column,1,len(@table))
+		begin
+		set @sqlcommand='
+		update a
+			set '+@column+'=b.newXXXXXid
+		from '+@table+' as a 
+		join #MapXXXXX as b on b.oldXXXXXid=a.'+@column+'
+		'
+		end
+
+	exec(@sqlcommand)
+	set @count=@count+1
+	end
+
+set @count=0
+set @table=''
+set @Column=''
+set @sqlcommand=''
+
+while @count<(select Count(*) from #tables)
+	begin
+	set @sqlcommand=''
+	set @table=(select xtable from #Tables where id =@count)
+	set @column=(select xcolumn from #Tables where id =@count)
+
+	if @table<>substring(@column,1,len(@table))
+		begin
+		set @sqlcommand='
+		delete a
+		from '+@table+' as a 
+		join #MapXXXXX as b on b.oldXXXXXid=a.'+@column+'
+		'
+		end
+
+	exec(@sqlcommand)
+	set @count=@count+1
+	end
+
+				]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

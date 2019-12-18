@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<CodeSnippets  
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">  
+    <CodeSnippet Format="1.0.0">  
+        <Header>  
+            <Title>Wrapper</Title>  
+        </Header>  
+        <Snippet>  
+            <Code Language="SQL">  
+                <![CDATA[
+
+go
+
+DECLARE @d_sql NVARCHAR(MAX)
+SET @d_sql = ''
+
+SELECT @d_sql = @d_sql + 'DROP TABLE ' + QUOTENAME(name) + ';
+'
+FROM tempdb..sysobjects
+WHERE name like '#[^#]%'
+AND OBJECT_ID('tempdb..'+QUOTENAME(name)) IS NOT NULL
+
+IF @d_sql <> ''
+BEGIN
+    EXEC( @d_sql )
+END
+
+go
+
+DECLARE @ScriptName nvarchar(100)		= '9999_XXX_Script.sql' 
+DECLARE @Section   nvarchar(100)		= 'SysConfig' 
+
+If NOT EXISTS (SELECT 1 FROM ScriptTracking where name=@ScriptName AND section=@Section)
+BEGIN
+	Print @scriptname
+	INSERT INTO ScriptTracking(Name,section) 
+	values(@ScriptName,@section)
+	
+------------------------------------------------------------------------------------------------------
+--                                        Begin Script
+------------------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------------------
+--                                         End Script
+------------------------------------------------------------------------------------------------------
+
+end; else begin print '***ATTENTION*** Script '''+@ScriptName+''' not ran' ; end
+
+go
+
+				]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

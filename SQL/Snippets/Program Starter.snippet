@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<CodeSnippets  
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">  
+    <CodeSnippet Format="1.0.0">  
+        <Header>  
+            <Title>Program starter</Title>  
+        </Header>  
+        <Snippet>  
+            <Code Language="SQL">  
+                <![CDATA[
+
+
+
+IF OBJECT_ID('tempdb..#TempTable') IS NOT NULL  
+begin
+drop table #TempTable
+end             
+
+select
+    row_number() over (order by t.name,c.name) as id,
+    t.name AS table_name,
+    c.name AS column_name
+into #TempTable 
+FROM data.sys.tables AS t
+JOIN data.sys.columns c ON t.OBJECT_ID = c.OBJECT_ID
+where 1=1
+and c.name <>'workcategoryID'
+
+
+
+declare @table nvarchar(50)=''
+declare @column nvarchar(50)=''
+declare @count int=0
+declare @sqlcommand nvarchar(max)=''
+
+while @count<(select count(*) from #TempTable)
+begin
+print 1+@count
+
+
+
+set @count=@count+1
+end
+
+                
+
+				]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>
