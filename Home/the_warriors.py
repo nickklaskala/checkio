@@ -6,23 +6,21 @@
 class Warrior:
 	health=50
 	attack=5
-	is_alive=True
-	
+
+	@property
+	def is_alive(self):
+		return self.health > 0
 
 class Knight(Warrior):
 	attack=Warrior.attack+2
-	
-
 
 def fight(p1, p2):
 	while p2.is_alive and p2.is_alive:
 		p2.health-=p1.attack
-		if p2.health<=0:
-			p2.is_alive=False
+		if p2.is_alive==False:
 			return True
 		p1.health-=p2.attack
-		if p1.health<=0:
-			p1.is_alive=False
+		if p1.is_alive==False:
 			return False
 
 
@@ -32,10 +30,8 @@ if __name__ == '__main__':
 
 	chuck = Warrior()
 	bruce = Warrior()
-
 	carl = Knight()
 	dave = Warrior()
-
 	mark = Warrior()
 
 	assert fight(chuck, bruce) == True
