@@ -18,15 +18,14 @@
 # END_DESC
 
 def time_converter(time):
-	p=11
-	t,a=time.split(' ')
-	
-	return time
+	t,ampm=time.split(' ')
+	h,m=t.split(':')
+	ampm=12 if 'p' in ampm and int(h)!=12 else 0
+	return str(int(h)+int(ampm)).zfill(2)+':'+m
 
 
-	='12:30 p.m.'
-	p=11
-	t,a=time.split(' ')
+
+
 
 if __name__ == '__main__':
 	print("Example:")
