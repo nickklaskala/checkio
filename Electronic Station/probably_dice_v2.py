@@ -39,7 +39,10 @@ def probability(dice, sides, target):
 	if target>dice*sides:
 		return 0
 
-	grid=[[0 for i in range(dice)] for i in range(sides)] + [[1] for i in range(sides)] + [[0] for i in range(sides*dice-sides)]
+	grid=[[0 for i in range(dice)] for i in range(sides)]+\
+		  [[1] for i in range(sides)]+\
+		  [[0] for i in range(sides*dice-sides)]
+
 	for p in range(dice-1):
 		for i in range(sides,sides+dice*sides):
 			grid[i].append(sum([grid[i-(k+1)][len(grid[i])-1] for k in range(sides)]))

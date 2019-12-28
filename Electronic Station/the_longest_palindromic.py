@@ -15,24 +15,18 @@
 # END_DESC
 
 from itertools import product
+
 def longest_palindromic(line):
 	line=''.join(reversed(line))
 	k=range(len(line)+1)
 	longest=''
 	
-	for h,i in product(k,k):
-		text=line[i:h]
-		if len(text)==0:
-			continue
-		if  all([text[i]==text[~i] for i in range(len(text))]) and\
-			len(text)>=len(longest):
+	for h,g in product(k,k):
+		text=line[g:h]
+		if  all([text[i]==text[~i] for i in range(len(text)//2)]) and len(text)>=len(longest):
 			longest=text
-	print(longest)
+
 	return longest
-
-
-
-longest_palindromic('abjncqdkcmabjncqdkcmabjncqdkcmabjncqdkcmabjncqdkcmabjncqdkcmabjncqdkcmabjncqdkcmmckdqcnjbamckdqcnjbamckdqcnjbamckdqcnjbamckdqcnjbamckdqcnjbamckdqcnjbamckdqcnjba;samca;sdkmc;akdsm;kds;oiolkjhgfdsasdfghjklyuweabjncqdkcm;samca;sdkmc;akdsm;kds;oioyuweabjncqdkcm;samca;sdkmc;akdsm;kds;oioyuweabjncqdkcm;samca;sdkmc;akdsm;kds;oioyuweabjncqdkcm;samca;sdkmc;akdsm;kds;oioyuweabjncqdkcm;samca;sdkmkjaslkhasodiuhwennrwmenf,dsncuindsdsncuindsc')
 
 
 if __name__ == '__main__':
@@ -43,5 +37,5 @@ if __name__ == '__main__':
 	assert longest_palindromic('abc') == 'a'
 	assert longest_palindromic('abacada') == 'aba'
 	assert longest_palindromic('artrartrt') == 'rtrartr'
-	assert longest_palindromic('aaaaa') == 'aaaaa'
+	assert longest_palindromic('Codingcomplete?ClickChecktoearncoolrewards!!sdrawerloocnraeotkcehCkcilC?etelpmocgnidoC')=='Codingcomplete?ClickChecktoearncoolrewards!!sdrawerloocnraeotkcehCkcilC?etelpmocgnidoC'
 	print("Coding complete? Click 'Check' to earn cool rewards!")
