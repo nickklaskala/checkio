@@ -36,16 +36,16 @@
 # END_DESC
 
 def probability(dice, sides, target):
-	if target>dice*sides:
+	if not 0<target<dice*sides:
 		return 0
 
-	grid=[[0 for i in range(dice)] for i in range(sides)] + [[1] for i in range(sides)] + [[0] for i in range(sides*dice-sides)]
+	grid=[[0 for i in range(dice)] for i in range(sides)] + [[1] for i in range(sides)] + [[0] for i in range(target-sides)]
+
 	for p in range(dice-1):
-		for i in range(sides,sides+dice*sides):
+		for i in range(sides,sides+target):
 			grid[i].append(sum([grid[i-(k+1)][len(grid[i])-1] for k in range(sides)]))
 
 	return grid[target+sides-1][dice-1]/sides**dice
-
 
 if __name__ == '__main__':
 	#These are only used for self-checking and are not necessary for auto-testing

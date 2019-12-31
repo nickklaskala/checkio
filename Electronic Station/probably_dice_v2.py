@@ -35,20 +35,16 @@
 # 
 # END_DESC
 
-def probability(dice, sides, target):
-	if target>dice*sides:
-		return 0
-
-	grid=[[0 for i in range(dice)] for i in range(sides)]+\
-		  [[1] for i in range(sides)]+\
-		  [[0] for i in range(sides*dice-sides)]
-
-	for p in range(dice-1):
-		for i in range(sides,sides+dice*sides):
-			grid[i].append(sum([grid[i-(k+1)][len(grid[i])-1] for k in range(sides)]))
-
-	return grid[target+sides-1][dice-1]/sides**dice
-
+def probability(dice_number, sides, target):
+    dict1 = {i:1 for i in range(1, sides + 1)}
+    for x in range(dice_number - 1):
+        dict2 = {}
+        for i in dict1.keys():
+            for j in range(1, sides + 1):
+                dict2.setdefault(i + j, 0)
+                dict2[i + j] += dict1[i]
+        dict1 = dict2
+    return round(dict1.get(target, 0) / sides ** dice_number, 4)
 
 if __name__ == '__main__':
 	#These are only used for self-checking and are not necessary for auto-testing
