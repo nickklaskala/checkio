@@ -21,15 +21,22 @@
 # 
 # END_DESC
 
-def reverse_roman(roman_string):
+def reverse_roman(data):	
+	numerals={'M':1000, 'D':500, 'C':100, 'L':50, 'X':10, 'V':5, 'I':1,}
+	total,pre,cur=0,0,0
 
-    #replace this for solution
-    return 0
+	for i in reversed(data):
+		pre,cur=cur,numerals[i]
+		total+= -cur if cur < pre else cur
+
+	return total
+
+
 
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
-    assert reverse_roman('VI') == 6, '6'
-    assert reverse_roman('LXXVI') == 76, '76'
-    assert reverse_roman('CDXCIX') == 499, '499'
-    assert reverse_roman('MMMDCCCLXXXVIII') == 3888, '3888'
-    print('Great! It is time to Check your code!');
+	#These "asserts" using only for self-checking and not necessary for auto-testing
+	assert reverse_roman('VI') == 6, '6'
+	assert reverse_roman('LXXVI') == 76, '76'
+	assert reverse_roman('CDXCIX') == 499, '499'
+	assert reverse_roman('MMMDCCCLXXXVIII') == 3888, '3888'
+	print('Great! It is time to Check your code!');
