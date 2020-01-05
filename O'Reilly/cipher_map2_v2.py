@@ -1,4 +1,3 @@
-#!/usr/bin/env checkio --domain=py run cipher-map2
 
 # 
 # END_DESC

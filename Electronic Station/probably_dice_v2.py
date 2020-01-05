@@ -1,4 +1,3 @@
-#!/usr/bin/env checkio --domain=py run probably-dice
 
 # You're on your way to a board game convention.    Chances are there’ll be some stiff competition,    so you decide to learn more about dice 
 # probabilities since you suspect you'll be rolling a lot of them soon.

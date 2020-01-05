@@ -18,22 +18,18 @@
 # END_DESC
 
 def time_converter(time):
-	t,d=time.split(' ')
+    t,d=time.split(' ')
 	h,m=t.split(':')
 	ampm=12 if 'p' in d and h!='12' else 0
 	ampm=-12 if h=='12' and 'a' in d else ampm
 	return str(int(h)+int(ampm)).zfill(2)+':'+m
 
-
-
-
-
 if __name__ == '__main__':
-	print("Example:")
-	print(time_converter('12:30 p.m.'))
+    print("Example:")
+    print(time_converter('12:30 p.m.'))
 
-	#These "asserts" using only for self-checking and not necessary for auto-testing
-	assert time_converter('12:00 a.m.') == '00:00'
-	assert time_converter('9:00 a.m.') == '09:00'
-	assert time_converter('11:15 p.m.') == '23:15'
-	print("Coding complete? Click 'Check' to earn cool rewards!")
+    #These "asserts" using only for self-checking and not necessary for auto-testing
+    assert time_converter('12:30 p.m.') == '12:30'
+    assert time_converter('9:00 a.m.') == '09:00'
+    assert time_converter('11:15 p.m.') == '23:15'
+    print("Coding complete? Click 'Check' to earn cool rewards!")
