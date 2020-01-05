@@ -22,9 +22,42 @@
 # 
 # END_DESC
 
-def can_pass(matrix, first, second):
-    return True or False
+def explore(matrix,start,end,hard_path=True):
+	y,x=start
+	yE,xE=end
+	soft_path=hard_path
+	
+	if y==end[0] and x==end[1]:
+		return True
 
+	matrix[y][x]=1
+	if matrix[y][x+1]==matrix[yE][xE]:
+		soft_path=explore(matrix,(y,x+1),end,hard_path)
+		if soft_path!=False:
+			return soft_path
+	if matrix[y+1][x]==matrix[yE][xE]:
+		soft_path=explore(matrix,(y+1,x),end,hard_path)
+		if soft_path!=False:
+			return soft_path
+	if matrix[y][x-1]==matrix[yE][xE]:
+		soft_path=explore(matrix,(y,x-1),end,hard_path)
+		if soft_path!=False:
+			return soft_path
+	if matrix[y-1][x]==matrix[yE][xE]:
+		soft_path=explore(matrix,(y-1,x),end,hard_path)
+		if soft_path!=False:
+			return soft_path
+	return False
+
+def can_pass(matrix, first, second):
+	pad=1
+	matrix=[list(l) for l in matrix]
+	matrix=[[pad for i in range(len(matrix[0])+pad)]]+\
+		   [[pad]+l+[pad] for l in matrix]+\
+		   [[pad for i in range(len(matrix[0])+pad)]]
+	fy,fx=first
+	sy,sx=second
+	return explore(matrix,(fy+1,fx+1),(sy+1,sx+1))
 
 if __name__ == '__main__':
     assert can_pass(((0, 0, 0, 0, 0, 0),
