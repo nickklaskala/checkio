@@ -12,16 +12,15 @@
 # END_DESC
 
 def replace_first(items: list) -> list:
-    # your code here
-    return items
+	return items[1:]+[items[0]] if items else []
 
 
 if __name__ == '__main__':
-    print("Example:")
-    print(replace_first([1, 2, 3, 4]))
+	print("Example:")
+	print(replace_first([1, 2, 3, 4]))
 
-    # These "asserts" are used for self-checking and not for an auto-testing
-    assert replace_first([1, 2, 3, 4]) == [2, 3, 4, 1]
-    assert replace_first([1]) == [1]
-    assert replace_first([]) == []
-    print("Coding complete? Click 'Check' to earn cool rewards!")
+	# These "asserts" are used for self-checking and not for an auto-testing
+	assert replace_first([1, 2, 3, 4]) == [2, 3, 4, 1]
+	assert replace_first([1]) == [1]
+	assert replace_first([]) == []
+	print("Coding complete? Click 'Check' to earn cool rewards!")
