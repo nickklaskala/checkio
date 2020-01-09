@@ -1,4 +1,4 @@
-#!/usr/bin/env checkio --domain=py run cut-sentence
+#!/usr/bin/env checkio --domain=py run cut_sentence-sentence
 
 # Your task in this mission is to truncate a sentence to a length, that does not exceed a  given number of characters.
 # 
@@ -21,9 +21,8 @@
 
 
 
-
-def cut(line, length):
-	indexes=[i for i in range(len(line)) if line[i]==' ']+[len(line)]
+def cut_sentence(line, length):
+	indexes=[0]+[i for i in range(len(line)) if line[i]==' ']+[len(line)]
 	rst=line
 	for loc in reversed(indexes):
 		rst=line[:loc]+'...'
@@ -35,8 +34,9 @@ def cut(line, length):
 
 if __name__ == '__main__':
 	#These "asserts" using only for self-checking and not necessary for auto-testing
-	assert cut("Hi my name is Alex", 4) == "Hi...", "First"
-	assert cut("Hi my name is Alex", 8) == "Hi my...", "Second"
-	assert cut("Hi my name is Alex", 18) == "Hi my name is Alex", "Third"
-	assert cut("Hi my name is Alex", 20) == "Hi my name is Alex", "Fourth"
+	assert cut_sentence("Hi my name is Alex", 4) == "Hi...", "First"
+	assert cut_sentence("Hi my name is Alex", 8) == "Hi my...", "Second"
+	assert cut_sentence("Hi my name is Alex", 18) == "Hi my name is Alex", "Third"
+	assert cut_sentence("Hi my name is Alex", 20) == "Hi my name is Alex", "Fourth"
+	assert cut_sentence("Hi my name is Alex",1) == "..."
 	print('Done! Do you like it? Go Check it!')
