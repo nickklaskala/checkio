@@ -41,32 +41,127 @@
 # 
 # END_DESC
 
-class Friend:
-    pass
 
-class Party:
-    pass
+# class Friend:
+# 	def __init__(self, name):
+# 		self.name = name
+# 		self.message = 'No party...'
 
+# 	def invite(self, message):
+# 		self.message = message
+
+# 	def show_invite(self):
+# 		return self.message
+
+
+# class Party:
+# 	def __init__(self, place):
+# 		self.place = place
+# 		self.friends = []
+
+# 	def add_friend(self, friend):
+# 		self.friends.append(friend)
+	
+# 	def del_friend(self, friend):
+# 		self.friends.remove(friend)
+
+# 	def send_invites(self, date):
+# 		for friend in self.friends:
+# 			friend.invite(f'{self.place}: {date}')
+
+
+
+
+# class Friend:
+# 	def __init__(self,name):
+# 		self.name=name
+
+# 		self.invites='No party...'
+
+# 	def show_invite(self):
+# 		print(self.invites)
+# 		return self.invites
+
+
+# class Party:
+# 	def __init__(self,name):
+# 		self.name=name
+# 		self.friends=[]
+
+# 	def add_friend(self,friend):
+# 		self.friends.append(friend)
+
+# 	def del_friend(self,friend):
+# 		self.friends.remove(friend)
+
+# 	def send_invites(self,when):
+# 		for friend in self.friends:
+# 			friend.invites=self.name+': '+when
+
+
+class Named:
+    def __init__(self, name):
+        self.name = name
+
+
+class Friend(Named):
+    invitation = 'No party...'
+
+    def show_invite(self):
+        return self.invitation
+
+
+class Party(Named,list):
+    add_friend, del_friend = list.append, list.remove
+    
+    def send_invites(self, time):
+        for f in self: f.invitation = f'{self.name}: {time}'
 
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
+	#These "asserts" using only for self-checking and not necessary for auto-testing
 
-    party = Party("Midnight Pub")
-    nick = Friend("Nick")
-    john = Friend("John")
-    lucy = Friend("Lucy")
-    chuck = Friend("Chuck")
+	party_1 = Party("Celentano")
+	party_2 = Party("Itaka")
+	party_3 = Party("Disneyland")
+	john = Friend('John')
+	rose = Friend('Rose')
+	gabe = Friend('Gabe')
+	party_1.add_friend(john)
+	party_1.add_friend(john)
+	party_1.add_friend(john)
+	party_2.add_friend(rose)
+	party_3.add_friend(gabe)
+	rose.show_invite()
+	for i in party_1:
+		print(i)
+	
 
-    party.add_friend(nick)
-    party.add_friend(john)
-    party.add_friend(lucy)
-    party.send_invites("Friday, 9:00 PM")
-    party.del_friend(nick)
-    party.send_invites("Saturday, 10:00 AM")
-    party.add_friend(chuck)
+	party_1.send_invites('Friday, 18:45')
+	party_2.send_invites('Saturday, 12:30')
+	party_3.send_invites('Sunday, 10:00')
+	rose.show_invite()
+	john.show_invite()
+	gabe.show_invite()
+	print("Coding complete? Let's try tests!")
 
-    assert john.show_invite() == "Midnight Pub: Saturday, 10:00 AM"
-    assert lucy.show_invite() == "Midnight Pub: Saturday, 10:00 AM"
-    assert nick.show_invite() == "Midnight Pub: Friday, 9:00 PM"
-    assert chuck.show_invite() == "No party..."
-    print("Coding complete? Let's try tests!")
+
+
+	party = Party("Midnight Pub")
+	nick = Friend("Nick")
+	john = Friend("John")
+	lucy = Friend("Lucy")
+	chuck = Friend("Chuck")
+
+	party.add_friend(nick)
+	party.add_friend(john)
+	party.add_friend(lucy)
+	party.send_invites("Friday, 9:00 PM")
+	party.del_friend(nick)
+	party.send_invites("Saturday, 10:00 AM")
+	party.add_friend(chuck)
+
+	assert john.show_invite() == "Midnight Pub: Saturday, 10:00 AM"
+	assert lucy.show_invite() == "Midnight Pub: Saturday, 10:00 AM"
+	assert nick.show_invite() == "Midnight Pub: Friday, 9:00 PM"
+	assert chuck.show_invite() == "No party..."
+	print("Coding complete? Let's try tests!")
