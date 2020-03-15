@@ -56,35 +56,80 @@
 # END_DESC
 
 def encode(message, secret_alphabet, keyword):
-    return message
+
+	message=message.replace(' ','').replace(':','').lower()
+	headers='ADFGVX'
+
+	encodedmessage=[(divmod(secret_alphabet.index(i),len(headers))) for i in message]
+	encodedmessage=[headers[value] for subset in encodedmessage for value in subset]
+
+	mydct={l:[] for l in set(keyword)}
+	newkey=[]
+	[newkey.append(l) for l in keyword if l not in newkey]
+
+	for l in newkey*10000:
+		if len(encodedmessage)==0:
+			break
+		mydct[l].append(encodedmessage[0])
+		encodedmessage.pop(0)
+
+	rst=[]
+	[rst.extend(mydct[k]) for k in list(sorted([k for k,v in mydct.items()]))]
+
+	return ''.join(rst)
 
 
 def decode(message, secret_alphabet, keyword):
-    return message
+	headers='ADFGVX'
+	newkey=[]
+	[newkey.append(l) for l in keyword if l not in newkey]
+	messageTemp=[l for l in message]
+	mydct={l:[] for l in set(keyword)}
+	for l in newkey*10000:
+		if len(messageTemp)==0:
+			break
+		mydct[l].append(messageTemp[0])
+		messageTemp.pop(0)
+	for k,v in mydct.items():
+		mydct[k]=len(v)
+	mydct2={l:[] for l in set(keyword)}
+	messageTemp=[l for l in message]
+
+	for l in sorted(newkey):
+		for i in range(0,mydct[l]):
+			mydct2[l].append(messageTemp[0])
+			messageTemp.pop(0)
+
+	messageTemp=[l for l in message]
+	mylist=[]
+	for l in newkey*10000:
+		if len(messageTemp)==0:
+			break
+		mylist.append(mydct2[l][0])
+		mydct2[l].pop(0)
+		messageTemp.pop(0)
+	# mymap=[divmod(secret_alphabet.index(i),5) for i in mylist]
+	rstTemp=[]
+	for i in range(0,int(len(message)/2)):
+		rstTemp.append(headers.index(mylist[0])*len(headers)+headers.index(mylist[1]))
+		
+
+
+		mylist.pop(0)
+		mylist.pop(0)
+	rst=''.join([secret_alphabet[i] for i in rstTemp])
+	return rst
+
+
+
 
 
 if __name__ == '__main__':
-    assert encode("I am going",
-                  "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g",
-                  "cipher") == 'FXGAFVXXAXDDDXGA', "encode I am going"
-    assert decode("FXGAFVXXAXDDDXGA",
-                  "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g",
-                  "cipher") == 'iamgoing', "decode I am going"
-    assert encode("attack at 12:00 am",
-                  "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz",
-                  "privacy") == 'DGDDDAGDDGAFADDFDADVDVFAADVX', "encode attack"
-    assert decode("DGDDDAGDDGAFADDFDADVDVFAADVX",
-                  "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz",
-                  "privacy") == 'attackat1200am', "decode attack"
-    assert encode("ditiszeergeheim",
-                  "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz",
-                  "piloten") == 'DFGGXXAAXGAFXGAFXXXGFFXFADDXGA', "encode ditiszeergeheim"
-    assert decode("DFGGXXAAXGAFXGAFXXXGFFXFADDXGA",
-                  "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz",
-                  "piloten") == 'ditiszeergeheim', "decode ditiszeergeheim"
-    assert encode("I am going",
-                  "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g",
-                  "weasel") == 'DXGAXAAXXVDDFGFX', "encode weasel == weasl"
-    assert decode("DXGAXAAXXVDDFGFX",
-                  "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g",
-                  "weasel") == 'iamgoing', "decode weasel == weasl"
+	assert encode("I am going", "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g","weasel") == 'DXGAXAAXXVDDFGFX', "encode weasel == weasl"
+	assert encode("I am going", "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g","cipher") == 'FXGAFVXXAXDDDXGA', "encode I am going"
+	assert encode("ditiszeergeheim", "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz","piloten") == 'DFGGXXAAXGAFXGAFXXXGFFXFADDXGA', "encode ditiszeergeheim"
+	assert encode("attack at 12:00 am", "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz","privacy") == 'DGDDDAGDDGAFADDFDADVDVFAADVX', "encode attack"
+	assert decode("FXGAFVXXAXDDDXGA", "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g","cipher") == 'iamgoing', "decode I am going"
+	assert decode("DXGAXAAXXVDDFGFX", "dhxmu4p3j6aoibzv9w1n70qkfslyc8tr5e2g","weasel") == 'iamgoing', "decode weasel == weasl"
+	assert decode("DGDDDAGDDGAFADDFDADVDVFAADVX", "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz","privacy") == 'attackat1200am', "decode attack"
+	assert decode("DFGGXXAAXGAFXGAFXXXGFFXFADDXGA", "na1c3h8tb2ome5wrpd4f6g7i9j0kjqsuvxyz","piloten") == 'ditiszeergeheim', "decode ditiszeergeheim"
