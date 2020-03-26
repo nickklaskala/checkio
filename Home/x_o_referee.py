@@ -1,19 +1,19 @@
 #!/usr/bin/env checkio --domain=py run x-o-referee
 
 # def checkio(pos) -> str:
-# 	t,m,b  ,l,c,r  ,winner=0,1,2  ,0,1,2  ,'D'
-# 	for turn in 'XO':
-# 		if any((
-# 			all((pos[t][l]==turn,pos[t][m]==turn,pos[t][r]==turn)),
-# 			all((pos[m][l]==turn, pos[m][c]==turn, pos[m][r]==turn)),
-# 			all((pos[b][l]==turn, pos[b][c]==turn, pos[b][r]==turn)),
-# 			all((pos[t][l]==turn, pos[m][l]==turn, pos[b][l]==turn)),
-# 			all((pos[t][c]==turn, pos[m][c]==turn, pos[b][c]==turn)),
-# 			all((pos[t][r]==turn, pos[m][r]==turn, pos[b][r]==turn)),
-# 			all((pos[t][l]==turn, pos[m][c]==turn, pos[b][r]==turn)),
-# 			all((pos[t][r]==turn, pos[m][c]==turn, pos[b][l]==turn))    )):
-# 			winner=turn
-# 	return winner
+#   t,m,b  ,l,c,r  ,winner=0,1,2  ,0,1,2  ,'D'
+#   for turn in 'XO':
+#       if any((
+#           all((pos[t][l]==turn, pos[t][m]==turn, pos[t][r]==turn)),
+#           all((pos[m][l]==turn, pos[m][c]==turn, pos[m][r]==turn)),
+#           all((pos[b][l]==turn, pos[b][c]==turn, pos[b][r]==turn)),
+#           all((pos[t][l]==turn, pos[m][l]==turn, pos[b][l]==turn)),
+#           all((pos[t][c]==turn, pos[m][c]==turn, pos[b][c]==turn)),
+#           all((pos[t][r]==turn, pos[m][r]==turn, pos[b][r]==turn)),
+#           all((pos[t][l]==turn, pos[m][c]==turn, pos[b][r]==turn)),
+#           all((pos[t][r]==turn, pos[m][c]==turn, pos[b][l]==turn))    )):
+#           winner=turn
+#   return winner
 
 def checkio(pos) -> str:
 	pos= "".join(pos)
@@ -21,13 +21,9 @@ def checkio(pos) -> str:
 	checks = [ [0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6] ]
 	for c in checks:
 		for turn in 'XO':
-			if all((pos[c[0]]==turn,pos[c[1]]==turn,pos[c[2]]==turn)):
+			if pos[c[0]]==pos[c[1]]==pos[c[2]]==turn:
 				winner=turn
 	return winner
-
-
-
-
 
 
 
