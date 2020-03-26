@@ -14,30 +14,32 @@
 # END_DESC
 
 FIRST_TEN = ["one", "two", "three", "four", "five", "six", "seven",
-             "eight", "nine"]
+			 "eight", "nine"]
 SECOND_TEN = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen",
-              "sixteen", "seventeen", "eighteen", "nineteen"]
+			  "sixteen", "seventeen", "eighteen", "nineteen"]
 OTHER_TENS = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy",
-              "eighty", "ninety"]
+			  "eighty", "ninety"]
 HUNDRED = "hundred"
 
 
+from itertools import product
+
 def checkio(num):
-    from itertools import product
-	a=[list(d) for d in product(['']+FIRST_TEN)]+\
-	  [list(d) for d in product(SECOND_TEN)]+\
+	a=[[d] for d in ['']+FIRST_TEN]+\
+	  [[d] for d in SECOND_TEN]+\
 	  [list(d) for d in product(OTHER_TENS,['']+FIRST_TEN)]
 	b=[list(d) for d in product(FIRST_TEN,[HUNDRED])]
-	m=a+[list(k+j) for k in b for j in a]
+	m=a+[k+j for k in b for j in a]
 	return ' '.join(m[num]).strip()
 
+
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
-    assert checkio(4) == 'four', "1st example"
-    assert checkio(133) == 'one hundred thirty three', "2nd example"
-    assert checkio(12) == 'twelve', "3rd example"
-    assert checkio(101) == 'one hundred one', "4th example"
-    assert checkio(212) == 'two hundred twelve', "5th example"
-    assert checkio(40) == 'forty', "6th example"
-    assert not checkio(212).endswith(' '), "Don't forget strip whitespaces at the end of string"
-    print('Done! Go and Check it!')
+	#These "asserts" using only for self-checking and not necessary for auto-testing
+	assert checkio(4) == 'four', "1st example"
+	assert checkio(133) == 'one hundred thirty three', "2nd example"
+	assert checkio(12) == 'twelve', "3rd example"
+	assert checkio(101) == 'one hundred one', "4th example"
+	assert checkio(212) == 'two hundred twelve', "5th example"
+	assert checkio(40) == 'forty', "6th example"
+	assert not checkio(212).endswith(' '), "Don't forget strip whitespaces at the end of string"
+	print('Done! Go and Check it!')
