@@ -45,27 +45,56 @@
 # END_DESC
 
 class Text:
-    pass
+	currenttext=''
+	font=''
+
+	def write(self,newtext):
+		self.currenttext+=newtext
+
+	def set_font(self,newfont):
+		self.font=newfont
+
+	def restore(self,version):
+		self.currenttext=version['text']
+		self.font=version['font']
+
+	def show(self):
+		rst= '['+self.font+']'+self.currenttext+'['+self.font+']' if self.font!='' else self.currenttext
+		print(rst)
+		return rst
 
 class SavedText:
-    pass
+	docs={}
+	version=0
+	
+	def save_text(self,textobject):
+		self.docs[self.version]={'text':textobject.currenttext,'font':textobject.font}
+		self.version+=1
 
+	def get_version(self,version):
+		return { 'text':self.docs[version]['text'], 'font':self.docs[version]['font']}
+		pass
+	pass
 
 if __name__ == '__main__':
-    #These "asserts" using only for self-checking and not necessary for auto-testing
+	#These "asserts" using only for self-checking and not necessary for auto-testing
 
-    text = Text()
-    saver = SavedText()
-    
-    text.write("At the very beginning ")
-    saver.save_text(text)
-    text.set_font("Arial")
-    saver.save_text(text)
-    text.write("there was nothing.")
+	text = Text()
+	saver = SavedText()
+	
+	text.write("At the very beginning ")
 
-    assert text.show() == "[Arial]At the very beginning there was nothing.[Arial]"
-    
-    text.restore(saver.get_version(0))
-    assert text.show() == "At the very beginning "
+	saver.save_text(text)
 
-    print("Coding complete? Let's try tests!")
+	text.set_font("Arial")
+	saver.save_text(text)
+	text.write("there was nothing.")
+
+	assert text.show() == "[Arial]At the very beginning there was nothing.[Arial]"
+	
+	text.restore(saver.get_version(0))
+	text.show()
+	assert text.show() == "At the very beginning "
+
+	print("Coding complete? Let's try tests!")
+
