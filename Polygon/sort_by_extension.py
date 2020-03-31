@@ -1,10 +1,10 @@
 #!/usr/bin/env checkio --domain=py run sort-by-extension
 
-# You are given with a list of files. You need to sort this list by file extension. Files with the same extestion should be sorted by name.
+# You are given a list of files. You need to sort this list by file extension. The files with the same extestion should be sorted by name.
 # 
-# Some cases about extensions:
+# Some possible cases:
 # 
-# Filename can't be an empty stringFiles without extensions should go before files with extensionFilename ".config" has empty extenstion and name ".config"Filename "config." has empty extenstion and name "config."Filename "table.imp.xls" has extesntion "xls" and name "table.imp"Filename ".imp.xls" has extension "xls" and name ".imp"Input:A list of filenames.
+# Filename cannot be an empty string;Files without extensions should go before the files with extensions;Filename ".config" has an empty extenstion and name ".config";Filename "config." has an empty extenstion and name "config.";Filename "table.imp.xls" has an extesntion "xls" and name "table.imp";Filename ".imp.xls" has extension "xls" and name ".imp".Input:A list of filenames.
 # 
 # Output:A list of filenames.
 # 

@@ -1,5 +1,8 @@
 #!/usr/bin/env checkio --domain=py run morse-clock
 
+# 
+# END_DESC
+
 def checkio(ts: str) -> str:
 	h,m,s=[t.zfill(2) for t in ts.split(':')]
 	bin = lambda t,zeros: str(format(int(t), 'b').zfill(zeros))

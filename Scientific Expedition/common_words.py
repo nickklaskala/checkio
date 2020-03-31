@@ -16,7 +16,6 @@
 # 
 # END_DESC
 
-
 def checkio(first, second):
 	x=','.join(sorted([w for w in first.split(',') if w in second.split(',')]))
 	return x
