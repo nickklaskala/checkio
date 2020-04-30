@@ -1,4 +1,4 @@
---Original--------------------------------------------------------------------------------------------------------------------
+--Original takes 3-4 hours
 select 
 	orders.id,
 	batch_id,
@@ -144,7 +144,7 @@ AND (orders.stort IS NULL OR orders.stort NOT IN('ADM'))
 
 
 
---Optimized-------------------------------------------------------------------------------------------------------------------
+--Optimized runs in 10-15 seconds
 select *
 from (
 	select distinct 
